@@ -11,7 +11,7 @@ fn main() {
     thread::sleep(time::Duration::from_secs(1));
     let output2 = Command::new("g910-led").args(["-a", BACKGROUND]).output().expect("Failed to execute");
     for core in sys.processors() {
-        println!("Core: {} Usage: {}", core.name(), core.cpu_usage());
+        println!("Core: {}, Frequency: {}mhz, Usage: {:0.2}", core.name(), core.frequency(), core.cpu_usage());
     }
     println!("{:?}\n{:?}", output1, output2);
 }
