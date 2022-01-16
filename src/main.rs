@@ -20,13 +20,12 @@ fn main() -> std::io::Result<()> {
     const START_COLOR: &str = "210000";
     let _output1 = Command::new("g910-led").args(["-a", START_COLOR]).output().expect("Failed to execute");
     thread::sleep(time::Duration::from_secs(1));
+    let mut command = format!("a {}", START_COLOR);
+    let mut file = File::create("/tmp/g910.profile")?;
     for core in sys.processors() {
-        if core.name() == "cpu0" {
-            let mut file = File::create("/tmp/g910.profile")?;
-            let command = format!("a {}\nc", get_color(core.cpu_usage()));
-            file.write_all(command.as_bytes())?;
-        }
+        
     }
+    file.write_all(command.as_bytes())?;
     let _output2 = Command::new("g910-led").args(["-p", "/tmp/g910.profile"]).output().expect("Failed to execute");
     Ok(())
 }
