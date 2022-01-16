@@ -13,7 +13,7 @@ fn get_color(percent: f32) -> String {
 }
 
 fn main() -> std::io::Result<()> {
-    let keys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "num0", "num1", "num2", "num3", "num4", "num5", "num6", "num7", "num8", "num9"];
+    let keys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"];
     let mut sys = System::new_all();
     sys.refresh_all();
     // const BACKGROUND: &str = "562500";
