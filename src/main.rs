@@ -20,6 +20,15 @@ fn get_cpu_temp() -> f32 {
 }
 
 fn main() -> std::io::Result<()> {
+    let mut cpu_file = String::new();
+    let thermals = fs::read_dir("/sys/class/thermal/")?;
+    for thermal in thermals {
+        let type_path = format!("{}/type", &thermal.as_ref().unwrap().path().display());
+        let sensor_type = fs::read_to_string(type_path).expect("Oops");
+        if sensor_type == "x86_pkg_temp\n" {
+            cpu_file = format!("{}/temp", &thermal.unwrap().path().display());
+        }
+    }
     let running = true;
     let keys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"];
     let mut sys = System::new_all();
