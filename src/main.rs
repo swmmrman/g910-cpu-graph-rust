@@ -12,9 +12,9 @@ fn get_color(percent: f32) -> String {
     format!("{:02X}{:02X}00", r, g)
 }
 
-fn get_cpu_temp() -> f32 {
-    let temp: String = fs::read_to_string("/sys/class/thermal/thermal_zone1/temp")
-        .expect("File missing");
+fn get_cpu_temp(path: &str) -> f32 {
+    let temp: String = fs::read_to_string(path)
+        .expect(&format!("File missing {}", path));
     let temp = temp.trim().parse::<f32>().unwrap();
     temp / 1000.0
 }
@@ -46,7 +46,7 @@ fn main() -> std::io::Result<()> {
             command.push_str(&newpart);
             counter += 1;
         }
-        let cpu_temp = get_cpu_temp();
+        let cpu_temp = get_cpu_temp(&cpu_file);
         let temp_str = format!("\ng logo {}", get_color((cpu_temp-30.0)*1.4));
         command.push_str(&temp_str);
         command.push_str("\nc");
