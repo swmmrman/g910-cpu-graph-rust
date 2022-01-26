@@ -7,8 +7,8 @@ use std::io::Write;
 
 fn get_color(percent: f32) -> String {
     let percent = percent / 100.0;
-    let r = (percent * 255.0) as i32;
-    let g =  (110.0 - (percent * 110.0)) as i32;
+    let r = (percent * 255.0) as u32;
+    let g =  (110.0 - (percent * 110.0)) as u32;
     format!("{:02X}{:02X}00", r, g)
 }
 
